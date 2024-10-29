@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { InventariosModule } from './inventarios/inventarios.module';
 import { PartesModule } from './partes/partes.module';
+import { RazaModule } from './raza/raza.module';
 
 @Module({
   imports: [ConfigModule.forRoot(
@@ -28,6 +29,7 @@ import { PartesModule } from './partes/partes.module';
     AuthModule,
     InventariosModule,
     PartesModule,
+    RazaModule,
   ],
   controllers: [],
   providers: [],
