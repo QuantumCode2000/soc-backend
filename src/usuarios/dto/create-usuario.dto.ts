@@ -9,13 +9,13 @@ export class CreateUsuarioDto {
   @Length(1, 5)
   extension: string;
 
-  @IsString()
-  @Length(1, 50)
-  grado: string;
+  //@IsString()
+  //@Length(1, 50)
+  //grado: string;
 
-  @IsString()
-  @Length(0, 50)
-  especialidad: string;
+ // @IsString()
+  //@Length(0, 50)
+  //especialidad: string;
 
   @IsString()
   @Length(1, 100)
@@ -51,7 +51,7 @@ export class CreateUsuarioDto {
   @Length(1, 20)
   estado: string;
 
-  @IsString()
-  @Length(1, 100)
-  unidad: string;
+  //@IsString()
+  //@Length(1, 100)
+  //unidad: string;
 }

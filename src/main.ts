@@ -33,7 +33,7 @@ async function bootstrap() {
   app.enableCors();
 
   // Configurar el prefijo global para las rutas
-  app.setGlobalPrefix(process.env.GLOBAL_PREFIX);
+  app.setGlobalPrefix("api/v1");
 
   // Configurar el Logger
   app.useLogger(['log', 'error', 'warn', 'debug', 'verbose']); // Configura los niveles de log

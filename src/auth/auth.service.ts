@@ -18,13 +18,13 @@ export class AuthService {
     const user = await this.usersService.findOneByEmail(email);
 
     if (!user) {
-      throw new UnauthorizedException("Invalid email");
+      throw new UnauthorizedException("Correo invalido ");
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      throw new UnauthorizedException("Invalid password");
+      throw new UnauthorizedException("Contraseña invalida");
     }
 
     const payload = {
@@ -32,7 +32,7 @@ export class AuthService {
       rol: user.rol,
       inSystemPermissions: user.inSystemPermissions,
       nombre: `${user.nombre} ${user.apellidoPaterno} ${user.apellidoMaterno}`,
-      unidad: user.unidad,
+      //unidad: user.unidad,
     };
 
     const token = await this.jwtService.signAsync(payload);
@@ -43,7 +43,7 @@ export class AuthService {
       token: token,
       inSystemPermissions: user.inSystemPermissions,
       nombre: `${user.nombre} ${user.apellidoPaterno} ${user.apellidoMaterno}`,
-      unidad: user.unidad,
+      //unidad: user.unidad,
     };
   }
 }

@@ -16,12 +16,12 @@ import { RazaModule } from './raza/raza.module';
     }
   ), UsuariosModule,
   TypeOrmModule.forRoot({
-    type: process.env.DATABASE_TYPE as any,
-    host: process.env.DATABASE_HOST,
-    port: parseInt(process.env.DATABASE_PORT),
-    username: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_NAME,
+    type: "mysql",
+    host: "127.0.0.1",
+    port: 3306,
+    username: "root",
+    password: "",
+    database: "soc",
     autoLoadEntities: true,
     synchronize: true,
     logging: true,
