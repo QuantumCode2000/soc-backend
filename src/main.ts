@@ -1,44 +1,22 @@
-// import { NestFactory } from '@nestjs/core';
-// import { AppModule } from './app.module';
-// import { ValidationPipe } from '@nestjs/common';
-// import { Logger } from '@nestjs/common';
-
-
-
-// async function bootstrap() {
-//   const app = await NestFactory.create(AppModule);
-//   app.enableCors();
-//   app.setGlobalPrefix(process.env.GLOBAL_PREFIX);
-//   app.useGlobalPipes(
-//     new ValidationPipe({
-//       whitelist: true,
-//       forbidNonWhitelisted: true,
-//       transform: true,
-
-//     })
-//   )
-//   await app.listen(3000);
-// }
-// bootstrap();
-
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe, Logger, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  ValidationPipe,
+  Logger,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('Bootstrap');
 
-  // Habilitar CORS
   app.enableCors();
 
-  // Configurar el prefijo global para las rutas
-  app.setGlobalPrefix("api/v1");
+  app.setGlobalPrefix('api/v1');
 
-  // Configurar el Logger
-  app.useLogger(['log', 'error', 'warn', 'debug', 'verbose']); // Configura los niveles de log
+  app.useLogger(['log', 'error', 'warn', 'debug', 'verbose']);
 
-  // Configurar Validación Global
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -47,7 +25,6 @@ async function bootstrap() {
     }),
   );
 
-  // Middleware para registrar todas las peticiones HTTP
   app.use((req, res, next) => {
     const { method, originalUrl } = req;
     const startTime = Date.now();
@@ -66,19 +43,14 @@ async function bootstrap() {
     next();
   });
 
-  // Middleware para capturar y registrar errores
   app.use((err, req, res, next) => {
     if (err instanceof HttpException) {
       const status = err.getStatus();
       const errorResponse = err.getResponse();
 
-      // Registrar el mensaje de error en la terminal
       if (typeof errorResponse === 'object' && errorResponse !== null) {
         const message = (errorResponse as any).message || err.message;
-        logger.error(
-          `Error ${status}: ${message}`,
-          err.stack,
-        );
+        logger.error(`Error ${status}: ${message}`, err.stack);
       } else {
         logger.error(`Error ${status}: ${err.message}`, err.stack);
       }
@@ -95,7 +67,6 @@ async function bootstrap() {
     next();
   });
 
-  // Iniciar la aplicación
   await app.listen(3000);
   logger.log(`Application is running on: ${await app.getUrl()}`);
 }

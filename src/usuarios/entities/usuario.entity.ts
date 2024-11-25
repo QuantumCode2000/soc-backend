@@ -1,4 +1,10 @@
-import { Column, DeleteDateColumn, Entity, PrimaryGeneratedColumn, BeforeInsert } from "typeorm";
+import {
+  Column,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  BeforeInsert,
+} from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 @Entity()
@@ -11,12 +17,6 @@ export class Usuario {
 
   @Column({ type: 'varchar', length: 5 })
   extension: string;
-
-  //@Column({ type: 'varchar', length: 50 })
-  //grado: string;
-
-  //@Column({ type: 'varchar', length: 50 })
-  //especialidad: string;
 
   @Column({ type: 'varchar', length: 100 })
   nombre: string;
@@ -41,9 +41,6 @@ export class Usuario {
 
   @Column({ type: 'varchar', length: 20 })
   estado: string;
-
-  //@Column({ type: 'varchar', length: 100 })
-  //unidad: string;
 
   @DeleteDateColumn()
   deletedAt: Date;
