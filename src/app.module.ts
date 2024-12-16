@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { InventariosModule } from './inventarios/inventarios.module';
+import { PedidosModule } from './pedidos/pedidos.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { InventariosModule } from './inventarios/inventarios.module';
     }),
     AuthModule,
     InventariosModule,
+    PedidosModule,
   ],
   controllers: [],
   providers: [],
