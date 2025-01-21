@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -15,12 +13,12 @@ import { PedidosModule } from './pedidos/pedidos.module';
     }),
     UsuariosModule,
     TypeOrmModule.forRoot({
-      type: process.env.DB_TYPE as any,
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'quantum',
+      password: 'quantum',
+      database: 'socdb',
       autoLoadEntities: true,
       synchronize: true,
       logging: true,

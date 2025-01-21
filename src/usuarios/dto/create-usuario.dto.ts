@@ -1,4 +1,4 @@
-import { IsString, IsEmail, IsOptional, Length, Matches } from 'class-validator';
+import { IsString, IsEmail, IsOptional, Length } from 'class-validator';
 
 export class CreateUsuarioDto {
   @IsString()
@@ -29,11 +29,6 @@ export class CreateUsuarioDto {
   @IsString()
   @Length(8, 255)
   password: string;
-
-  @IsOptional()
-  @IsString()
-  @Length(1, 255)
-  inSystemPermissions?: string;
 
   @IsString()
   @Length(1, 50)
