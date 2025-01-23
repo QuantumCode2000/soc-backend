@@ -1,8 +1,8 @@
-import { 
-  Entity, 
-  Column, 
-  PrimaryGeneratedColumn, 
-  CreateDateColumn, 
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
   OneToMany,
 } from 'typeorm';
 import { Corte } from '../entities/corte.entity';
@@ -17,9 +17,6 @@ export class Pedido {
 
   @Column()
   descripcion: string;
-
-  @Column()
-  inventarioId: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   fechaCreacion: Date;

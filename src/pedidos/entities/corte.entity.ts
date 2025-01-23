@@ -1,9 +1,4 @@
-import { 
-  Entity, 
-  Column, 
-  PrimaryGeneratedColumn, 
-  ManyToOne,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 import { Pedido } from '../entities/pedido.entity';
 
@@ -12,11 +7,11 @@ export class Corte {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  longitud: string;
+  @Column({ type: 'int' })
+  longitud: number;
 
-  @Column()
-  ancho: string;
+  @Column({ type: 'int' })
+  ancho: number;
 
   @Column({ type: 'int' })
   cantidad: number;

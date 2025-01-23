@@ -1,10 +1,29 @@
-import { 
-  IsString,
-  IsNotEmpty, 
+import {
+  IsNotEmpty,
+  IsInt,
+  ValidateNested,
   IsArray,
-  ValidateNested,  
+  IsString,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+
+export class CreateCorteDto {
+  @IsInt()
+  @IsNotEmpty()
+  @Type(() => Number) // Transforma el valor a número
+  longitud: number;
+
+  @IsInt()
+  @IsNotEmpty()
+  @Type(() => Number)
+  ancho: number;
+
+  @IsInt()
+  @IsNotEmpty()
+  @Type(() => Number)
+  cantidad: number;
+}
+
 export class CreatePedidoDto {
   @IsString()
   @IsNotEmpty()
@@ -14,26 +33,8 @@ export class CreatePedidoDto {
   @IsNotEmpty()
   descripcion: string;
 
-  @IsString()
-  @IsNotEmpty()
-  inventarioId: string;
-
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateCorteDto)
   cortes: CreateCorteDto[];
-}
-export class CreateCorteDto {
-  @IsString()
-  @IsNotEmpty()
-  longitud: string;
-
-  @IsString()
-  @IsNotEmpty()
-  ancho: string;
-
-  @IsNotEmpty()
-  //@IsInt()
-  //@Min(1)
-  cantidad: number;
 }

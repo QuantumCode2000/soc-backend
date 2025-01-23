@@ -4,7 +4,6 @@ import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Usuario } from './entities/usuario.entity';
-import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuariosService implements OnModuleInit {
@@ -46,21 +45,15 @@ export class UsuariosService implements OnModuleInit {
       });
 
       if (!existeUsuario) {
-        // Hashear la contraseña y guardar usuario
-        const usuario = this.usuariosRepository.create({
-          ...usuarioDto,
-          password: await bcrypt.hash(usuarioDto.password, 10),
-        });
+        // Crear usuario directamente
+        const usuario = this.usuariosRepository.create(usuarioDto);
         await this.usuariosRepository.save(usuario);
       }
     }
   }
 
   async create(createUsuarioDto: CreateUsuarioDto) {
-    const usuario = this.usuariosRepository.create({
-      ...createUsuarioDto,
-      password: await bcrypt.hash(createUsuarioDto.password, 10), // Hash de contraseña
-    });
+    const usuario = this.usuariosRepository.create(createUsuarioDto);
     return await this.usuariosRepository.save(usuario);
   }
 
@@ -73,10 +66,15 @@ export class UsuariosService implements OnModuleInit {
   }
 
   async update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    const { ...rest } = updateUsuarioDto;
+    const { password, ...rest } = updateUsuarioDto;
 
-    if (rest.password) {
-      rest.password = await bcrypt.hash(rest.password, 10);
+    // Solo actualiza el password si está presente
+    if (password) {
+      const usuario = await this.usuariosRepository.findOneBy({ id });
+      if (usuario) {
+        usuario.password = password; // Se rehasheará automáticamente por @BeforeInsert
+        await this.usuariosRepository.save(usuario);
+      }
     }
 
     await this.usuariosRepository.update(id, rest);
