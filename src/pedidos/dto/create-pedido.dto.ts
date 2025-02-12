@@ -10,7 +10,7 @@ import { Type } from 'class-transformer';
 export class CreateCorteDto {
   @IsInt()
   @IsNotEmpty()
-  @Type(() => Number) // Transforma el valor a número
+  @Type(() => Number) 
   longitud: number;
 
   @IsInt()
